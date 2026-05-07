@@ -1,0 +1,45 @@
+# Secrets
+.env
+.env.*
+auth.json
+auth.lock
+notion_token
+hass.env
+*.swp
+*.bak*
+
+# Databases
+*.db
+*.db-*
+response_store.db*
+sessions.db*
+state.db*
+workspace.db*
+
+# Runtime
+gateway.lock
+gateway.pid
+gateway_state.json
+processes.json
+tasks.json
+workspace-*.json
+models_dev_cache.json
+channel_directory.json
+discord_threads.json
+
+# Directories
+audio_cache/
+browser_screenshots/
+checkpoints/
+hub-data/
+knowledge/
+logs/
+pairing/
+pastes/
+plans/
+retro/
+rules/
+sessions/
+skills/.bundled_manifest
+skills/.hub/
+cron/
