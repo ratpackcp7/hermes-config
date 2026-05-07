@@ -54,7 +54,9 @@ Last loaded: {now}
 {summary}
 
 ## Before Starting Any Task
-- Read this file + project CLAUDE.md + project HANDOFF.md
+1. Read ~/ACERSERVER.md — server map, active projects, recent activity
+2. Read /home/chris/cp7-bridge/docs/agent-standards/AGENT-OPERATING-STANDARD.md — rules, templates, ADR triggers
+3. Read target project AGENTS.md + target project HANDOFF.md
 - When done: run session-save.sh with a summary of what you did
 """
 
@@ -62,6 +64,31 @@ with open(HANDOFF_PATH, "w") as f:
     f.write(handoff)
 
 print(handoff)
+
+# Print ACERSERVER.md for orientation
+ACERSERVER_PATH = os.path.expanduser("~/ACERSERVER.md")
+if os.path.exists(ACERSERVER_PATH):
+    with open(ACERSERVER_PATH) as f:
+        acerserver = f.read()
+    # Print key sections only (server facts, active agents, cron summary)
+    lines = acerserver.splitlines()
+    sections_to_print = {"## Server Facts", "## Active Agents", "## Source of Truth", "## Cron Summary"}
+    in_section = False
+    current_section_name = None
+    output_lines = []
+    for line in lines:
+        if line.startswith("## "):
+            in_section = line.strip() in sections_to_print
+            current_section_name = line.strip()
+        if in_section:
+            output_lines.append(line)
+    if output_lines:
+        print("\n--- ACERSERVER.md (orientation) ---")
+        print("\n".join(output_lines))
+        print("--- end orientation ---\n")
+else:
+    print("\n⚠️  ~/ACERSERVER.md not found — run regen-acerserver-md.sh")
+
 
 # Config freshness check — warn if L1 memory is stale
 import re
