@@ -40,7 +40,11 @@ Last loaded: 2026-05-11 16:13
   bosGame MCP config — needs uv install + claude_desktop_config.json
 
 ## Recent Changes (2026-05-12)
-- **cron-doc-drift-check fix**: `regen-cron-doc.py` had a volatile timestamp (`datetime.now()`) in the generated output, causing false drift detection every hour. Removed the timestamp so the comparison is stable. Script: `~/.hermes/scripts/regen-cron-doc.py`.
+- **cron-doc-drift-check fix**: `regen-cron-doc.py` had two bugs causing hourly false-positive pings:
+  1. Volatile timestamp (`datetime.now()`) in generated output
+  2. Volatile runtime fields (`last_run_at`, `last_status`, `runs completed`) included in output — these change every cron run
+  
+  Removed both. `CRON.md` now only contains static job configuration. Script: `~/.hermes/scripts/regen-cron-doc.py`.
 
 ## Before Starting Any Task
 1. Read ~/ACERSERVER.md — server map, active projects, recent activity

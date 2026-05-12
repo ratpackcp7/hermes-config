@@ -37,9 +37,6 @@ def build_active_jobs_section(jobs):
         prompt   = job.get("prompt", "")
         desc     = (prompt[:120] + "…") if len(prompt) > 120 else prompt
         deliver  = job.get("deliver", "unknown")
-        runs     = job.get("repeat", {}).get("completed", 0) if isinstance(job.get("repeat"), dict) else 0
-        last_run = job.get("last_run_at") or "never"
-        last_status = job.get("last_status") or "—"
         script   = job.get("script")
 
         lines.append(f"### {name}")
@@ -48,8 +45,6 @@ def build_active_jobs_section(jobs):
         if script:
             lines.append(f"- **Pre-script:** `{script}`")
         lines.append(f"- **Delivers to:** {deliver}")
-        lines.append(f"- **Runs completed:** {runs}")
-        lines.append(f"- **Last run:** {last_run} | **Last status:** {last_status}")
         lines.append(f"- **What it does:** {desc}")
         lines.append("")
 
