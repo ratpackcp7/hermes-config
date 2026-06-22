@@ -39,6 +39,9 @@ Last loaded: 2026-05-11 16:13
   HA skill hang — Bob hung on first HA query (2+ min, no response). Cause unknown.
   bosGame MCP config — needs uv install + claude_desktop_config.json
 
+## Recent Changes (2026-06-21)
+- **Bob Contract Pack v1 — SOUL.md Rule #3**: Added binding Rule #3 to SOUL.md on branch `feature/bob-contract-pack-v1`. Points Bob at runtime helpers from ratpackcp7/home-config#20 (`bob-dispatch route`, `bob-spec-new`, `bob-route-smoke`, `pif`, `bob-closeout-summary`, `bob-dirty-report`, `bob-artifact-url`, `bob-pr-inspect`, `bob-emp-deploy-check`). Cursor is now default build agent (OC sidelined). PR pending against master.
+
 ## Recent Changes (2026-05-12)
 - **cron-doc-drift-check fix**: `regen-cron-doc.py` had two bugs causing hourly false-positive pings:
   1. Volatile timestamp (`datetime.now()`) in generated output
