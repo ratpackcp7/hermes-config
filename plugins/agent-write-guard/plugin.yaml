@@ -1,0 +1,5 @@
+name: agent-write-guard
+version: 1.0.0
+description: Block loose agent files at home root
+provides_hooks:
+  - pre_tool_call

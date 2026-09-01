@@ -1,0 +1,7 @@
+name: bob-truth-guard
+version: 1.0.0
+description: Evidence-bound operational answers for Bob
+provides_hooks:
+  - pre_llm_call
+  - post_tool_call
+  - transform_llm_output
