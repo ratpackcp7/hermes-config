@@ -1,7 +1,13 @@
-# Server HANDOFF
-Last loaded: 2026-09-01 13:58 
+# HANDOFF — hermes-config
 
-## Generated Homelab Snapshot
+Durable, hand-maintained task handoff for this project (`~/.hermes`, the
+Bob/Hermes runtime-config repo) — same AGENTS.md + HANDOFF.md convention
+used for every other project. `scripts/session-start.sh` never writes this file;
+update it by hand when active work on this repo changes.
+
+## Homelab Reference (snapshot as of last manual update)
+
+Kept in sync by hand, not by session-start.sh. See `~/ACERSERVER.md` for the live version.
 ## Server Facts
 
 - Host: acerserver
@@ -31,9 +37,9 @@ Last loaded: 2026-09-01 13:58
 ## Recent Activity
 
 
-This file is a generated startup snapshot, not a durable task handoff. The
-startup contract and the target project's AGENTS.md + HANDOFF.md remain
-authoritative for active work.
+Homelab-wide facts (not project-specific) live in `~/ACERSERVER.md` and are
+excerpted fresh into Bob's printed startup snapshot and startup-brief
+injection on every session — never written here.
 
 ## Before Starting Any Task
 1. Read ~/project-status.md only for a complete cross-project view
