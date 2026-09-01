@@ -30,6 +30,7 @@ Last loaded: 2026-08-02 21:49
 
 ## Recent Activity
 
+- 2026-09-01 residue cleanup: preserving the intentional shared-bootstrap integration, startup contract, and activity-hook source on an isolated feature branch; no runtime activation/restart performed.
 
 This file is a generated startup snapshot, not a durable task handoff. The
 startup contract and the target project's AGENTS.md + HANDOFF.md remain

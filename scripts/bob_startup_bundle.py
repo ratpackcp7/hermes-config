@@ -388,6 +388,40 @@ def run_session_start(extra_argv: list[str] | None = None) -> tuple[str, dict[st
     return stdout, bundle
 
 
+SHARED_BOOTSTRAP_PATH = Path(__file__).resolve().parent / "shared_bootstrap.py"
+
+
+def _attach_shared_bootstrap(injection: str) -> str:
+    """Option A: attach the shared agent-bootstrap contract to the Hermes brief.
+
+    The adapter itself is fail-visible — on bootstrap failure it returns the
+    normal brief with a NO-GO BOOTSTRAP block prepended. This wrapper only
+    handles the adapter being absent or unimportable, which must never take
+    Hermes startup down with it: the brief still ships, but it ships carrying a
+    visible NO-GO rather than silently looking like a normal startup.
+    """
+    try:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location(
+            "hermes_shared_bootstrap", SHARED_BOOTSTRAP_PATH
+        )
+        if spec is None or spec.loader is None:
+            raise ImportError(f"cannot load {SHARED_BOOTSTRAP_PATH}")
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        workspace = os.environ.get("CP7_BOOTSTRAP_WORKSPACE") or str(Path.home())
+        return mod.build_hermes_injection_with_bootstrap(injection, workspace=workspace)
+    except Exception as exc:  # adapter missing/broken — stay up, stay visible
+        reason = str(exc).replace("\n", " ")[:200]
+        return (
+            "BOOTSTRAP:\n"
+            "- status: NO-GO\n"
+            f"- error: shared bootstrap adapter unavailable: {reason}\n\n"
+            f"{injection}"
+        )
+
+
 def build_startup_bundle(
     session_id: str,
     *,
@@ -405,6 +439,7 @@ def build_startup_bundle(
             session_id=session_id,
         )
     injection = build_injection_text(bundle, session_id=session_id)
+    injection = _attach_shared_bootstrap(injection)
     return bundle, injection
 
 

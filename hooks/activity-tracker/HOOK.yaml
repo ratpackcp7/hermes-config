@@ -1,0 +1,7 @@
+name: activity-tracker
+description: Tracks agent activity to status.json for the CP7 Hub dashboard
+events:
+  - gateway:startup
+  - agent:start
+  - agent:step
+  - agent:end
