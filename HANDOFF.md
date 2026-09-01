@@ -1,5 +1,5 @@
 # Server HANDOFF
-Last loaded: 2026-08-02 21:49 
+Last loaded: 2026-09-01 13:58 
 
 ## Generated Homelab Snapshot
 ## Server Facts
@@ -23,14 +23,13 @@ Last loaded: 2026-08-02 21:49
 
 - Project/service map: /home/chris/AGENT_INDEX.md
 - Live service inventory: /home/chris/projects/service-register/services.yaml
-- Operating standard: ACP Rule 00-90 (rendered per harness, e.g. ~/.claude/CLAUDE.md, ~/.codex/AGENTS.md); startup contract: /home/chris/bin/agent-bootstrap (cp7-agent-stack)
+- Operating standard: ACP Rule 00-90 (rendered per harness); startup contract: /home/chris/bin/agent-bootstrap (cp7-agent-stack)
 - Infrastructure conventions (cp7-bridge scope only): /home/chris/cp7-bridge/docs/agent-standards/AGENT-OPERATING-STANDARD.md
 - Recent infrastructure log: /home/chris/changelog.md
-- Open work tracker: ~/todo.md (curated priorities) and ~/project-status.md (generated handoff view)
+- Open work: ~/todo.md is the primary global open-work surface (curated priorities). ~/project-status.md is a generated secondary cross-project view — never a canonical queue.
 
 ## Recent Activity
 
-- 2026-09-01 residue cleanup: preserving the intentional shared-bootstrap integration, startup contract, and activity-hook source on an isolated feature branch; no runtime activation/restart performed.
 
 This file is a generated startup snapshot, not a durable task handoff. The
 startup contract and the target project's AGENTS.md + HANDOFF.md remain
