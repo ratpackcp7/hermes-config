@@ -76,3 +76,13 @@ hooks/activity-tracker/status.tmp
 # ~/.hermes/cron/jobs.json (see docs/decisions/ADR-2026-05-12-cron-drift-timestamp-fix.md);
 # never tracked in this repo's history.
 CRON.md
+
+# Local runtime-reference snapshots. These describe the live ~/.hermes install,
+# contain time-sensitive machine/runtime inventory, and are not active policy/source.
+README.md
+DB_SCHEMA.md
+SKILLS.md
+
+# Saved upstream-fork patch evidence. Preserve on disk; canonical code ownership is
+# the Hermes source Git checkout/fork, not this runtime-config repository.
+fork-patches/
