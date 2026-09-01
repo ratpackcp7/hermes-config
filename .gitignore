@@ -43,3 +43,46 @@ sessions/
 skills/.bundled_manifest
 skills/.hub/
 cron/
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# Dev/tool caches
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# LSP / JS dependency trees
+node_modules/
+
+# Managed/installed CLI binaries
+bin/uv
+bin/uvx
+bin/tirith
+
+# Nested runtime install (hermes-agent framework checkout under repo root;
+# see skills/devops/nightly-retrospective/SKILL.md reference to
+# ~/.hermes/hermes-agent/cron/scheduler.py)
+hermes-agent/
+
+# Activity-hook runtime state (hooks/activity-tracker/handler.py STATUS_FILE)
+hooks/activity-tracker/status.json
+hooks/activity-tracker/status.tmp
+
+# Generated documentation — fully rewritten by scripts/regen-cron-doc.py from
+# ~/.hermes/cron/jobs.json (see docs/decisions/ADR-2026-05-12-cron-drift-timestamp-fix.md);
+# never tracked in this repo's history.
+CRON.md
+
+# Local runtime-reference snapshots. These describe the live ~/.hermes install,
+# contain time-sensitive machine/runtime inventory, and are not active policy/source.
+README.md
+DB_SCHEMA.md
+SKILLS.md
+
+# Saved upstream-fork patch evidence. Preserve on disk; canonical code ownership is
+# the Hermes source Git checkout/fork, not this runtime-config repository.
+fork-patches/
