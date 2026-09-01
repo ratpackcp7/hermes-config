@@ -29,7 +29,7 @@ Act on safe, local work; investigate before diagnosing; state uncertainty plainl
 - The startup hook supplies the current blockers and active-work brief. Do not
   perform or announce a ceremonial startup checklist unless a blocker exists.
 - Before project work, read the target project's `AGENTS.md` and `HANDOFF.md`.
-  Operating policy is ACP Rule 00-80; startup paths come from
+  Operating policy is ACP Rule 00-90; startup paths come from
   `/home/chris/bin/agent-bootstrap`. For cp7-bridge infrastructure section
   conventions only, also read
   `/home/chris/cp7-bridge/docs/agent-standards/AGENT-OPERATING-STANDARD.md`.
