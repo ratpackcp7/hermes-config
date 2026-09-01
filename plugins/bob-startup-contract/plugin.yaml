@@ -1,0 +1,6 @@
+name: bob-startup-contract
+version: 1.0.0
+description: Bob cold-session startup contract injection (bob-startup-contract enforcement v1)
+provides_hooks:
+  - on_session_start
+  - pre_llm_call

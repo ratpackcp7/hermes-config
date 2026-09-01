@@ -36,6 +36,7 @@ Kept in sync by hand, not by session-start.sh. See `~/ACERSERVER.md` for the liv
 
 ## Recent Activity
 
+- 2026-09-01: Recovered previously-untracked Hermes operational scripts and custom plugin source into hermes-config after provenance, secret-pattern, syntax, and focused-test review. Runtime-installed overlays remain separate from curated source.
 
 Homelab-wide facts (not project-specific) live in `~/ACERSERVER.md` and are
 excerpted fresh into Bob's printed startup snapshot and startup-brief
