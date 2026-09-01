@@ -23,7 +23,7 @@ Last loaded: 2026-08-02 21:49
 
 - Project/service map: /home/chris/AGENT_INDEX.md
 - Live service inventory: /home/chris/projects/service-register/services.yaml
-- Operating standard: ACP Rule 00-80 (rendered per harness, e.g. ~/.claude/CLAUDE.md, ~/.codex/AGENTS.md); startup contract: /home/chris/bin/agent-bootstrap (cp7-agent-stack)
+- Operating standard: ACP Rule 00-90 (rendered per harness, e.g. ~/.claude/CLAUDE.md, ~/.codex/AGENTS.md); startup contract: /home/chris/bin/agent-bootstrap (cp7-agent-stack)
 - Infrastructure conventions (cp7-bridge scope only): /home/chris/cp7-bridge/docs/agent-standards/AGENT-OPERATING-STANDARD.md
 - Recent infrastructure log: /home/chris/changelog.md
 - Open work tracker: ~/todo.md (curated priorities) and ~/project-status.md (generated handoff view)
@@ -37,7 +37,7 @@ authoritative for active work.
 
 ## Before Starting Any Task
 1. Read ~/project-status.md only for a complete cross-project view
-2. Operating standard: ACP Rule 00-80; startup contract: /home/chris/bin/agent-bootstrap (cp7-agent-stack)
+2. Operating standard: ACP Rule 00-90; startup contract: /home/chris/bin/agent-bootstrap (cp7-agent-stack)
    For cp7-bridge infrastructure conventions only: cp7-bridge/docs/agent-standards/AGENT-OPERATING-STANDARD.md
 3. Read target project AGENTS.md + HANDOFF.md before project work
 - When done: run session-save.sh with a summary of what you did

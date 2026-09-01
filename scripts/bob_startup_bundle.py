@@ -17,7 +17,8 @@ STAGED_RESTARTS_PATH = Path.home() / "staged-restarts.md"
 SCRATCHPAD_CANONICAL = Path("/home/chris/bob-scratchpad.md")
 SCRATCHPAD_LEGACY = Path("/home/chris/swap/bob-scratchpads/bob-scratchpad.md")
 ACERSERVER_PATH = Path.home() / "ACERSERVER.md"
-BOB_PRINCIPLES_PATH = Path("/home/chris/bob-principles.md")
+HERMES_ROOT = Path(__file__).resolve().parents[1]
+BOB_PRINCIPLES_PATH = HERMES_ROOT / "bob-principles.md"
 SESSION_START_SCRIPT = Path.home() / ".hermes" / "scripts" / "session-start.sh"
 CONTRACT_DOC = Path.home() / ".hermes" / "STARTUP_CONTRACT.md"
 PROJECT_STATUS_PATH = Path.home() / ".local" / "state" / "bob" / "project-status.json"
@@ -332,9 +333,9 @@ Dispatch scratchpad: {'active — ' + str(scratch.get('summary')) if scratch.get
 {project_block}
 
 Canon (do not invent a second):
-- operating policy: ACP Rule 00-80 (rendered per harness; e.g. ~/.claude/CLAUDE.md)
+- operating policy: ACP Rule 00-90 (rendered per harness)
 - startup paths: /home/chris/bin/agent-bootstrap
-- Bob ops preferences: ~/bob-principles.md
+- Bob ops preferences: ~/.hermes/bob-principles.md
 - cp7-bridge infra sections only: ~/cp7-bridge/docs/agent-standards/AGENT-OPERATING-STANDARD.md
 
 Host facts when needed:

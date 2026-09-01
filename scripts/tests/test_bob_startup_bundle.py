@@ -3,7 +3,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-sys.path.insert(0, str(Path.home() / ".hermes" / "scripts"))
+REPO = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO / "scripts"))
 import bob_startup_bundle as bundle
 
 
@@ -37,8 +38,11 @@ class StartupBundleTests(unittest.TestCase):
         self.assertNotIn("stale: 21", text)
         self.assertNotIn("Mandatory acknowledgment", text)
         self.assertIn("agent-bootstrap", text)
-        self.assertIn("ACP Rule 00-80", text)
-        self.assertNotIn("operating rules: ~/bob-principles.md", text)
+        self.assertIn("ACP Rule 00-90", text)
+        self.assertIn("Bob ops preferences: ~/.hermes/bob-principles.md", text)
+        self.assertNotIn("ACP Rule 00-80", text)
+        self.assertNotIn("~/bob-principles.md", text)
+        self.assertEqual(bundle.BOB_PRINCIPLES_PATH, REPO / "bob-principles.md")
 
 
 if __name__ == "__main__":
