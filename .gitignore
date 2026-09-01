@@ -33,6 +33,8 @@ browser_screenshots/
 checkpoints/
 hub-data/
 knowledge/
+# `knowledge` may also be a runtime symlink/file rather than a directory.
+knowledge
 logs/
 pairing/
 pastes/
@@ -111,6 +113,9 @@ feishu_seen_message_ids.json
 models.json
 ollama_cloud_models_cache.json
 provider_models_cache.json
+state/
+state-snapshots/
+web-ui-build-stamp.json
 memories/MEMORY.md
 memories/MEMORY.md.lock
 memories/USER.md
@@ -130,3 +135,5 @@ skills/devops/*
 !skills/devops/nightly-retrospective/
 !skills/financial-report-generation/
 !skills/productivity/
+skills/productivity/*
+!skills/productivity/handoff/

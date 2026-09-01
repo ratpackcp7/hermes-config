@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Financial Report - Chris Pack</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0f1117;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #ffffff;
+            border-bottom: 2px solid #1a1d27;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #e0e0e0;
+        }
+
+        /* Summary Cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: #1a1d27;
+            padding: 20px;
+            border: 1px solid #2a2d35;
+        }
+
+        .card-label {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .card-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .card-value.positive { color: #4ade80; }
+        .card-value.negative { color: #f87171; }
+        .card-value.neutral { color: #60a5fa; }
+
+        /* Charts */
+        .chart-container {
+            margin-bottom: 30px;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chart-wrapper {
+            background-color: #1a1d27;
+            padding: 20px;
+            border: 1px solid #2a2d35;
+        }
+
+        .chart-wrapper-wide {
+            grid-column: 1 / -1;
+        }
+
+        .chart-wrapper-half {
+            grid-column: 1 / -1;
+        }
+
+        .chart-wrapper-quarter {
+            grid-column: 1 / -1;
+        }
+
+        .chart-wrapper-quarter:first-child {
+            grid-column: 1 / 2;
+        }
+
+        .chart-wrapper-quarter:nth-child(2) {
+            grid-column: 2 / 3;
+        }
+
+        canvas {
+            max-width: 100%;
+        }
+
+        /* Tables */
+        .table-wrapper {
+            overflow-x: auto;
+            background-color: #1a1d27;
+            border: 1px solid #2a2d35;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #2a2d35;
+        }
+
+        th {
+            background-color: #252833;
+            font-weight: 600;
+            color: #ffffff;
+            position: sticky;
+            top: 0;
+        }
+
+        tr:hover {
+            background-color: #252833;
+        }
+
+        /* Insights */
+        .insights-box {
+            background-color: #1a1d27;
+            border: 1px solid #2a2d35;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #60a5fa;
+        }
+
+        .insight-title {
+            font-weight: bold;
+            color: #60a5fa;
+            margin-bottom: 10px;
+        }
+
+        /* Recurring Table */
+        .recurring-list {
+            background-color: #1a1d27;
+            border: 1px solid #2a2d35;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .recurring-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #2a2d35;
+        }
+
+        .recurring-item:last-child {
+            border-bottom: none;
+        }
+
+        .recurring-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .recurring-details {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .recurring-count {
+            color: #60a5fa;
+            font-size: 0.85rem;
+            margin-left: 10px;
+        }
+
+        /* Date Range */
+        .date-range {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-wrapper-quarter {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weekly Financial Report</h1>
+        <div class="date-range">{{ DATE_RANGE }}</div>
+
+        <!-- Summary Cards -->
+        <div class="summary-grid">
+            <div class="card">
+                <div class="card-label">Total Income</div>
+                <div class="card-value positive">${{ SUMMARY_INCOME }}</div>
+            </div>
+            <div class="card">
+                <div class="card-label">Total Expenses</div>
+                <div class="card-value negative">${{ SUMMARY_EXPENSES }}</div>
+            </div>
+            <div class="card">
+                <div class="card-label">Net Spending</div>
+                <div class="card-value neutral">${{ SUMMARY_NET }}</div>
+            </div>
+            <div class="card">
+                <div class="card-label">Savings</div>
+                <div class="card-value positive">${{ SUMMARY_SAVINGS }}</div>
+            </div>
+        </div>
+
+        <!-- Monthly Income vs Expenses -->
+        <div class="chart-grid">
+            <div class="chart-wrapper-wide">
+                <h2>Monthly Income vs Expenses</h2>
+                <div class="chart-container">
+                    <canvas id="monthlyChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Spending -->
+        <div class="chart-grid">
+            <div class="chart-wrapper">
+                <h2>Net Spending by Category</h2>
+                <div class="chart-container">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <h2>Category Breakdown (Top 8)</h2>
+                <div class="chart-container">
+                    <canvas id="doughnutChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monthly Category Heatmap -->
+        <div class="chart-grid">
+            <div class="chart-wrapper-wide">
+                <h2>Monthly Category Heatmap</h2>
+                <div class="chart-container">
+                    <canvas id="heatmapChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Income Sources -->
+        <div class="chart-grid">
+            <div class="chart-wrapper">
+                <h2>Income Sources</h2>
+                <div class="chart-container">
+                    <canvas id="incomeChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <h2>Top 15 Merchants</h2>
+                <div class="table-wrapper">
+                    <table id="merchantsTable">
+                        <thead>
+                            <tr>
+                                <th>Merchant</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Insights -->
+        <div class="insights-box">
+            <div class="insight-title">Key Insights</div>
+            <ul>
+                {{ INSIGHTS }}
+            </ul>
+        </div>
+
+        <!-- Top 15 Merchants Table -->
+        <div class="table-wrapper">
+            <h2>Top 15 Merchants (by spending)</h2>
+            <table id="merchantsTableFull">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Merchant</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Recurring Expenses -->
+        <div class="recurring-list">
+            <h2>Recurring Expenses ({{ RECURRING_COUNT }} patterns identified)</h2>
+            <div id="recurringContainer">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chart.js defaults
+        Chart.defaults.color = '#888';
+        Chart.defaults.borderColor = '#2a2d35';
+
+        // Summary data
+        const summary = {
+            income: {{ SUMMARY_INCOME }},
+            expenses: {{ SUMMARY_EXPENSES }},
+            net: {{ SUMMARY_NET }},
+            savings: {{ SUMMARY_SAVINGS }}
+        };
+
+        // Monthly data
+        const monthlyData = {
+            labels: {{ MONTHLY_LABELS }},
+            income: {{ MONTHLY_INCOME }},
+            expenses: {{ MONTHLY_EXPENSES }},
+            net: {{ MONTHLY_NET }}
+        };
+
+        // Category data
+        const categoryData = {{ CATEGORY_DATA }};
+
+        // Income sources
+        const incomeSources = {{ INCOME_SOURCES }};
+
+        // Merchants
+        const merchants = {{ MERCHANTS }};
+
+        // Recurring
+        const recurring = {{ RECURRING_DATA }};
+
+        // Monthly category heatmap data
+        const monthlyCategories = {{ MONTHLY_CATEGORIES }};
+
+        // Monthly Chart
+        new Chart(document.getElementById('monthlyChart'), {
+            type: 'bar',
+            data: {
+                labels: monthlyData.labels,
+                datasets: [{
+                    label: 'Income',
+                    data: monthlyData.income,
+                    backgroundColor: '#4ade80',
+                    borderColor: '#4ade80',
+                    borderWidth: 1
+                }, {
+                    label: 'Expenses',
+                    data: monthlyData.expenses,
+                    backgroundColor: '#f87171',
+                    borderColor: '#f87171',
+                    borderWidth: 1
+                }, {
+                    label: 'Net',
+                    data: monthlyData.net,
+                    backgroundColor: '#60a5fa',
+                    borderColor: '#60a5fa',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Category Bar Chart
+        new Chart(document.getElementById('categoryChart'), {
+            type: 'bar',
+            data: {
+                labels: categoryData.slice(0, 12).map(d => d.category),
+                datasets: [{
+                    label: 'Net Spending',
+                    data: categoryData.slice(0, 12).map(d => d.expenses - d.refunds),
+                    backgroundColor: '#f87171',
+                    borderColor: '#f87171',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Doughnut Chart
+        new Chart(document.getElementById('doughnutChart'), {
+            type: 'doughnut',
+            data: {
+                labels: categoryData.slice(0, 8).map(d => d.category),
+                datasets: [{
+                    data: categoryData.slice(0, 8).map(d => d.expenses),
+                    backgroundColor: [
+                        '#f87171',
+                        '#60a5fa',
+                        '#4ade80',
+                        '#fbbf24',
+                        '#a78bfa',
+                        '#f472b6',
+                        '#34d399',
+                        '#fb923c'
+                    ],
+                    borderColor: '#1a1d27',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    }
+                }
+            }
+        });
+
+        // Heatmap Chart
+        new Chart(document.getElementById('heatmapChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Housing', 'Food', 'Insurance', 'Transportation', 'Utilities'],
+                datasets: Object.keys(monthlyCategories).map((month, index) => ({
+                    label: month,
+                    data: Object.values(monthlyCategories[month]),
+                    backgroundColor: ['#f87171', '#60a5fa', '#4ade80', '#fbbf24', '#a78bfa'][index],
+                    borderColor: '#f87171',
+                    borderWidth: 1
+                }))
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Income Sources Chart
+        new Chart(document.getElementById('incomeChart'), {
+            type: 'bar',
+            data: {
+                labels: incomeSources.map(d => d.source),
+                datasets: [{
+                    label: 'Income Amount',
+                    data: incomeSources.map(d => d.amount),
+                    backgroundColor: '#4ade80',
+                    borderColor: '#4ade80',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Populate Top 15 Merchants Table
+        const merchantsTableBody = document.querySelector('#merchantsTable tbody');
+        const merchantsTableFullBody = document.querySelector('#merchantsTableFull tbody');
+
+        merchants.forEach((merch, index) => {
+            // Small table
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${merch[1].toLocaleString()}</td>
+                <td>${merch[0]}</td>
+            `;
+            merchantsTableBody.appendChild(row);
+
+            // Full table
+            const fullRow = document.createElement('tr');
+            fullRow.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${merch[0]}</td>
+                <td>${merch[2]}</td>
+                <td>$${merch[1].toLocaleString('en-US', {minimumFractionDigits: 2})}</td>
+            `;
+            merchantsTableFullBody.appendChild(fullRow);
+        });
+
+        // Populate Recurring Expenses
+        const recurringContainer = document.getElementById('recurringContainer');
+        recurring.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'recurring-item';
+            div.innerHTML = `
+                <div class="recurring-header">
+                    <span>${item.name}</span>
+                    <span>$${item.average.toLocaleString('en-US', {minimumFractionDigits: 2})} avg</span>
+                </div>
+                <div class="recurring-details">
+                    <span>Total: $${item.total.toLocaleString('en-US', {minimumFractionDigits: 2})}</span>
+                    <span class="recurring-count">${item.count} occurrences</span>
+                </div>
+            `;
+            recurringContainer.appendChild(div);
+        });
+    </script>
+</body>
+</html>
