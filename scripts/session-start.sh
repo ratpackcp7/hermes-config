@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Refresh Bob's local startup snapshot without external state dependencies."""
+"""Print Bob's generated startup orientation snapshot.
+
+Never writes tracked HANDOFF.md: that file is this project's durable,
+hand-maintained task handoff (see its own header). Homelab facts are
+excerpted fresh from ~/ACERSERVER.md on every run; nothing here persists to
+Git-tracked files.
+"""
 import argparse
 import os
 import subprocess
@@ -10,8 +16,8 @@ HANDOFF_PATH = os.path.expanduser("~/.hermes/HANDOFF.md")
 ACERSERVER_PATH = os.path.expanduser("~/ACERSERVER.md")
 PROJECT_STATUS_SCRIPT = os.path.expanduser("~/.hermes/scripts/project_status.py")
 
-parser = argparse.ArgumentParser(description="Refresh Bob's generated startup snapshot")
-parser.add_argument("--dry-run", action="store_true", help="Print without updating HANDOFF.md")
+parser = argparse.ArgumentParser(description="Print Bob's generated startup orientation snapshot")
+parser.add_argument("--dry-run", action="store_true", help="Pass --dry-run through to the project-status refresh")
 parser.add_argument(
     "--no-bundle-recurse",
     action="store_true",
@@ -43,29 +49,25 @@ if project_status.returncode:
     print(f"WARNING: project status refresh failed: {project_status.stderr.strip()}")
 
 now = datetime.now().strftime("%Y-%m-%d %H:%M %Z")
-handoff = f"""# Server HANDOFF
-Last loaded: {now}
+handoff = f"""# Bob Startup Snapshot
+Generated: {now}
 
 ## Generated Homelab Snapshot
 {summary}
 
-This file is a generated startup snapshot, not a durable task handoff. The
-startup contract and the target project's AGENTS.md + HANDOFF.md remain
-authoritative for active work.
+This is a generated startup snapshot, printed only — it is never written to
+tracked HANDOFF.md. The startup contract and the target project's AGENTS.md
++ HANDOFF.md remain authoritative for active work.
 
 ## Before Starting Any Task
 1. Read ~/project-status.md only for a complete cross-project view
-2. Operating standard: ACP Rule 00-80; startup contract: /home/chris/bin/agent-bootstrap (cp7-agent-stack)
+2. Operating standard: ACP Rule 00-90; startup contract: /home/chris/bin/agent-bootstrap (cp7-agent-stack)
    For cp7-bridge infrastructure conventions only: cp7-bridge/docs/agent-standards/AGENT-OPERATING-STANDARD.md
 3. Read target project AGENTS.md + HANDOFF.md before project work
 - When done: run session-save.sh with a summary of what you did
 """
 
-handoff_updated = False
-if not args.dry_run:
-    with open(HANDOFF_PATH, "w") as f:
-        f.write(handoff)
-    handoff_updated = True
+handoff_updated = os.path.exists(HANDOFF_PATH)
 
 print(handoff)
 
