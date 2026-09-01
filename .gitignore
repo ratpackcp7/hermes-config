@@ -86,3 +86,47 @@ SKILLS.md
 # Saved upstream-fork patch evidence. Preserve on disk; canonical code ownership is
 # the Hermes source Git checkout/fork, not this runtime-config repository.
 fork-patches/
+
+# Live Hermes runtime/config state. These are machine-local state, caches, or
+# credential-bearing configuration rather than hermes-config source.
+config.yaml
+context_length_cache.yaml
+.hermes_history
+.update_check
+.codex_gpt55_autoraise_notice
+.envsk-*
+.npm_lock_hash_*
+.restart_last_processed.json
+.skills_prompt_snapshot.json
+cache/
+data/
+gateway/
+gateway-starts.log
+interrupt_debug.log
+kanban/
+kanban.db.*.lock
+lsp/
+shared/
+feishu_seen_message_ids.json
+models.json
+ollama_cloud_models_cache.json
+provider_models_cache.json
+memories/MEMORY.md
+memories/MEMORY.md.lock
+memories/USER.md
+memories/USER.md.lock
+
+# Installed shared-bootstrap adapter. Editable source is owned by
+# cp7-agent-stack/adapters/hermes/shared_bootstrap.py; this live copy is deployed.
+scripts/shared_bootstrap.py
+
+# Hermes skill installer overlay. hermes-config owns only the curated skill
+# surfaces below; all other installed skill packages/state remain runtime data.
+skills/*
+!skills/configure-hermes-gateway-model/
+!skills/devops/
+skills/devops/*
+!skills/devops/l1-memory-management/
+!skills/devops/nightly-retrospective/
+!skills/financial-report-generation/
+!skills/productivity/
