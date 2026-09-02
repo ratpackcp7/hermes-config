@@ -36,6 +36,7 @@ Kept in sync by hand, not by session-start.sh. See `~/ACERSERVER.md` for the liv
 
 ## Recent Activity
 
+- 2026-09-02: Optimized `scripts/capture-source.sh` so normal HTML capture uses lightweight `curl` + `pandoc` first and only falls back to self-hosted Firecrawl when that path fails; `w3m` and raw `curl` remain later fallbacks. No Docker or Hermes restart performed.
 - 2026-09-01: Recovered previously-untracked Hermes operational scripts (including the separately audited session-save helper), custom plugins, nightly-retrospective references, and financial-report support source into hermes-config. Runtime-installed productivity skills, caches/state/build artifacts, and the cp7-agent-stack-owned shared-bootstrap deployment remain outside curated source.
 
 Homelab-wide facts (not project-specific) live in `~/ACERSERVER.md` and are

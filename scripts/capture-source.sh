@@ -8,8 +8,8 @@
 #   capture-source.sh correction <topic> <content-file>
 #
 # Writes a properly-frontmattered file into the right raw/ subdirectory.
-# Fetches URLs via Firecrawl if FIRECRAWL_API_URL is set, otherwise falls back
-# to markdown via w3m or curl+pandoc.
+# Fetches URLs with lightweight curl+pandoc first, then falls back to Firecrawl,
+# w3m, and finally raw curl.
 #
 # Examples:
 #   capture-source.sh docs https://nextjs.org/docs/app nextjs 16.2 app-router
@@ -88,11 +88,20 @@ ensure_dir() {
 }
 
 # Fetch a URL and return markdown on stdout.
-# Priority: Firecrawl (if FIRECRAWL_API_URL set) > pandoc+curl > w3m > curl raw
+# Priority: pandoc+curl > Firecrawl (if configured) > w3m > curl raw
 fetch_markdown() {
   local url="$1"
 
-  # Firecrawl (self-hosted at 127.0.0.1:3200 on acerserver)
+  # Lightweight first path for normal HTML pages.
+  if command -v pandoc >/dev/null 2>&1 && command -v curl >/dev/null 2>&1; then
+    local html
+    html="$(curl -sSL -H "User-Agent: Mozilla/5.0 (bob-capture)" "$url" 2>/dev/null || true)"
+    if [[ -n "$html" ]]; then
+      echo "$html" | pandoc -f html -t markdown_strict --wrap=none 2>/dev/null && return 0
+    fi
+  fi
+
+  # Heavier fallback for pages that simple HTML conversion cannot handle.
   if [[ -n "${FIRECRAWL_API_URL:-}" ]]; then
     local resp
     resp="$(curl -sS -X POST "$FIRECRAWL_API_URL/v1/scrape" \
@@ -107,15 +116,6 @@ fetch_markdown() {
       fi
     fi
     echo "WARN: firecrawl fetch failed, falling back" >&2
-  fi
-
-  # pandoc + curl
-  if command -v pandoc >/dev/null 2>&1 && command -v curl >/dev/null 2>&1; then
-    local html
-    html="$(curl -sSL -H "User-Agent: Mozilla/5.0 (bob-capture)" "$url" 2>/dev/null || true)"
-    if [[ -n "$html" ]]; then
-      echo "$html" | pandoc -f html -t markdown_strict --wrap=none 2>/dev/null && return 0
-    fi
   fi
 
   # w3m fallback
