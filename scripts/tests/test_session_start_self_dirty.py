@@ -165,7 +165,6 @@ class SessionStartSelfDirtyTests(unittest.TestCase):
         out = self._run_session_start(datetime.now())
         self.assertIn("ACP Rule 00-90", out)
         self.assertNotIn("ACP Rule 00-80", out)
-        self.assertIn("/home/chris/bin/agent-bootstrap", out)
         self.assertIn("AGENTS.md", out)
         self.assertIn("HANDOFF.md", out)
 
@@ -193,7 +192,6 @@ class HandoffOwnershipCoherenceTests(unittest.TestCase):
     def test_sot_wording_preserved(self):
         content = (REPO / "HANDOFF.md").read_text(encoding="utf-8")
         self.assertIn("ACP Rule 00-90", content)
-        self.assertIn("/home/chris/bin/agent-bootstrap", content)
         self.assertIn(
             "~/todo.md is the primary global open-work surface", content
         )

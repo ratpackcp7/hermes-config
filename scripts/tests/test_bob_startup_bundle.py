@@ -37,7 +37,6 @@ class StartupBundleTests(unittest.TestCase):
         self.assertIn("Active projects: 8 | blocked: 0", text)
         self.assertNotIn("stale: 21", text)
         self.assertNotIn("Mandatory acknowledgment", text)
-        self.assertIn("agent-bootstrap", text)
         self.assertIn("ACP Rule 00-90", text)
         self.assertIn("Bob ops preferences: ~/.hermes/bob-principles.md", text)
         self.assertNotIn("ACP Rule 00-80", text)

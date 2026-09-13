@@ -61,7 +61,7 @@ tracked HANDOFF.md. The startup contract and the target project's AGENTS.md
 
 ## Before Starting Any Task
 1. Read ~/project-status.md only for a complete cross-project view
-2. Operating standard: ACP Rule 00-90; startup contract: /home/chris/bin/agent-bootstrap (cp7-agent-stack)
+2. Operating standard: ACP Rule 00-90
    For cp7-bridge infrastructure conventions only: cp7-bridge/docs/agent-standards/AGENT-OPERATING-STANDARD.md
 3. Read target project AGENTS.md + HANDOFF.md before project work
 - When done: run session-save.sh with a summary of what you did
