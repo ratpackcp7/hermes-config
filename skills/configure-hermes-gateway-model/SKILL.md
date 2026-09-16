@@ -12,7 +12,7 @@ Configure the Hermes Agent Gateway model/provider safely.
 
 ## Safety Priority
 
-Changing config may be safe. Restarting gateway/Bob/Hermes is production-impacting.
+Changing config may be safe. Restarting the Hermes gateway is production-impacting.
 
 Do not restart anything unless Chris explicitly approves the restart in the current task.
 
@@ -29,7 +29,7 @@ Likely config file:
 OpenRouter key for evaluation may be referenced from:
 
 ```text
-/home/chris/.config/bob-model-eval/openrouter.env
+/home/chris/.config/hermes-model-eval/openrouter.env
 ```
 
 Use the path, not the key value.
@@ -98,7 +98,7 @@ For gateway platforms (Telegram, Discord, etc.), you can switch models per-sessi
 
 ## Restart
 
-Restarting Hermes Gateway kills/interrupts active Bob context. Use only after approval.
+Restarting Hermes Gateway interrupts active Hermes sessions. Use only after approval.
 
 Preferred restart command if approved:
 

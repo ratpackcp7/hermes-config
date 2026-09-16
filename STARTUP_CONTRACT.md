@@ -1,12 +1,9 @@
-# Bob Startup Contract
+# Hermes Context Contract
 
-On the first turn of every new session, Bob receives a compact, generated
-startup brief: only pending restart blockers, active dispatch state, a few
-active-project highlights, and a bounded host excerpt. Bob does not need to
-repeat or acknowledge this brief unless a restart blocker exists.
+Hermes must not inject generated operational startup summaries or retired compatibility policy before the first model call.
 
-For project work, Bob must read the target project's `AGENTS.md` and
-`HANDOFF.md`. `~/.hermes/HANDOFF.md` is this project's own durable,
-hand-maintained handoff — reading it orients Bob to Bob's own runtime repo,
-not proof that a *target* project's handoff was read. Full host and project
-views stay on demand at `~/ACERSERVER.md` and `~/project-status.md`.
+Intentional context is limited to the harness/system contract, `SOUL.md`, enabled product memory/user-profile features, the current conversation/session, and project files explicitly read for the current task.
+
+Historical startup snapshots, old scratchpads, project-status summaries, and host excerpts are not automatic model context. They may be inspected explicitly when the task requires them.
+
+No plugin may silently replace a model's final response as a policy mechanism.

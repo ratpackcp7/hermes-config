@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Append a completed Bob session summary to the local changelog."""
+"""Append a completed Hermes session summary to the local changelog."""
 import sys, os
 from datetime import datetime
 
@@ -14,7 +14,7 @@ now = datetime.now().strftime("%Y-%m-%d %H:%M")
 
 # Append to changelog.md
 with open(CHANGELOG, "a") as f:
-    f.write(f"\n## {now} — Bob session\n{summary}\n")
+    f.write(f"\n## {now} — Hermes session\n{summary}\n")
 print(f"Appended to {CHANGELOG}")
 
 print(f"Summary: {summary}")
