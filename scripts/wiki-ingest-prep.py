@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Wiki-ingest prep — load today's blogwatcher articles for Bob to evaluate and ingest.
+"""Wiki-ingest prep — load today's blogwatcher articles for Hermes review and ingest.
 
 Pre-script for the wiki-ingest cron. Reads the JSON saved by blogwatcher-digest.py
 and outputs it as structured context for the LLM prompt.

@@ -28,7 +28,7 @@
 #   - blogwatcher cron (suggestion #3, when built)
 #   - Chris directly from the shell
 #
-# Author: Bob
+# Author: Hermes runtime tooling
 # Created: 2026-04-08
 
 set -euo pipefail
@@ -95,7 +95,7 @@ fetch_markdown() {
   # Lightweight first path for normal HTML pages.
   if command -v pandoc >/dev/null 2>&1 && command -v curl >/dev/null 2>&1; then
     local html
-    html="$(curl -sSL -H "User-Agent: Mozilla/5.0 (bob-capture)" "$url" 2>/dev/null || true)"
+    html="$(curl -sSL -H "User-Agent: Mozilla/5.0 (hermes-capture)" "$url" 2>/dev/null || true)"
     if [[ -n "$html" ]]; then
       echo "$html" | pandoc -f html -t markdown_strict --wrap=none 2>/dev/null && return 0
     fi
@@ -124,7 +124,7 @@ fetch_markdown() {
   fi
 
   # curl raw as absolute last resort
-  curl -sSL -H "User-Agent: Mozilla/5.0 (bob-capture)" "$url" 2>/dev/null || die "all fetchers failed for $url" 2
+  curl -sSL -H "User-Agent: Mozilla/5.0 (hermes-capture)" "$url" 2>/dev/null || die "all fetchers failed for $url" 2
 }
 
 # Append one line to wiki/log.md

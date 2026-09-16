@@ -163,35 +163,9 @@ current_model = config.get('model', {}).get('default', '')
 # Compare to L1 entry, warn if mismatch
 ```
 
-## Wiki Optimization for Bob (NEW — 2026-04-30)
+## Wiki lookup
 
-### BOB_INDEX.md
-
-Created `~/wiki/BOB_INDEX.md` — personal cheatsheet mapping tools/tasks to wiki pages.
-
-**Structure:**
-```markdown
-# Bob's Wiki Index
-## Tools I Use Daily (table: Tool → Wiki Page)
-## Concepts I Need (table: Concept → Wiki Page)  
-## Common Tasks (table: Task → Where to Look)
-## Quick Facts (merged from L2 cache)
-## Search Tips (grep commands)
-```
-
-**Why:** I never "browse" the wiki — I `grep` everything. BOB_INDEX gives me instant lookup without remembering paths.
-
-### Wiki Lint Exemptions
-
-Updated `~/.hermes/scripts/wiki-lint.py`:
-- Added `BOB_INDEX.md` to orphan exemption list
-- Fix case-sensitive wikilinks: `[[bob-index]]` → `[[BOB_INDEX]]`
-
-### Wiki Health
-
-- 77 pages, 52 orphans (69%) — **doesn't matter** for my workflow (I grep, not browse)
-- Cross-link top orphans I actually use (e.g., `empower.md` → `[[BOB_INDEX]]`)
-- Archive duplicates: `family-finance.md`, `family_and_finances.md` → `archive/`
+Use the wiki only when the current task needs project-specific knowledge. Search by topic/path; no agent-specific index is authoritative.
 
 ### When L1 hits 80%:
 1. Read `~/.hermes/memories/MEMORY.md`

@@ -12,7 +12,7 @@ from pathlib import Path
 
 
 DEFAULT_INDEX = Path.home() / "AGENT_INDEX.md"
-DEFAULT_JSON = Path.home() / ".local" / "state" / "bob" / "project-status.json"
+DEFAULT_JSON = Path.home() / ".local" / "state" / "hermes" / "project-status.json"
 DEFAULT_MARKDOWN = Path.home() / "project-status.md"
 STALE_DAYS = 21
 

@@ -1,4 +1,4 @@
-# Memory Filing Rules — Bob's Reference
+# Memory Filing Rules — Hermes Reference
 
 **CHECK THIS FILE before every `memory` add/replace/remove call.**
 

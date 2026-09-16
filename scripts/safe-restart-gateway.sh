@@ -23,7 +23,7 @@ send_telegram() {
 }
 
 # Notify before restart
-send_telegram "🔄 Bob: Restarting gateway. Back in ~10s."
+send_telegram "🔄 Hermes: Restarting gateway. Back in ~10s."
 
 # Restart
 systemctl --user restart hermes-gateway.service
@@ -34,11 +34,11 @@ while (( elapsed < MAX_WAIT )); do
   sleep "$POLL_INTERVAL"
   elapsed=$(( elapsed + POLL_INTERVAL ))
   if curl -s --max-time 3 "$HEALTH_URL" >/dev/null 2>&1; then
-    send_telegram "✅ Bob: Gateway back online."
+    send_telegram "✅ Hermes: Gateway back online."
     exit 0
   fi
 done
 
 # Failed to come back
-send_telegram "❌ Bob: Gateway failed to restart. Watchdog will retry in ~5min."
+send_telegram "❌ Hermes: Gateway failed to restart. Watchdog will retry in ~5min."
 exit 1

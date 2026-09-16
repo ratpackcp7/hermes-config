@@ -1,51 +1,22 @@
 # HANDOFF — hermes-config
 
-Durable, hand-maintained task handoff for this project (`~/.hermes`, the
-Bob/Hermes runtime-config repo) — same AGENTS.md + HANDOFF.md convention
-used for every other project. `scripts/session-start.sh` never writes this file;
-update it by hand when active work on this repo changes.
+Durable handoff for the Hermes runtime-config repo at `~/.hermes`. `scripts/session-start.sh` never writes this file.
 
-## Homelab Reference (snapshot as of last manual update)
+## Current state
 
-Kept in sync by hand, not by session-start.sh. See `~/ACERSERVER.md` for the live version.
-## Server Facts
+- Hermes is the runtime/product owner; there is no separate legacy agent policy or routing authority.
+- Hidden startup/output-transform context has been retired by the 2026-09-16 context cleanup.
+- Intentional Hermes memory, user-profile, and session context remains enabled unless separately changed.
+- No gateway restart is part of this source cleanup; an already-running process may retain code loaded before the change until a separately authorized restart or new process.
 
-- Host: acerserver
-- OS: Ubuntu 24.04, headless, WiFi-only
-- User: chris
-- Tailscale IP: 100.101.249.113
-- Domain: cp7.dev through Cloudflare Zero Trust tunnel
-- Home Assistant: https://ha.cp7.dev
-- GitHub: ratpackcp7
-- Backup: Restic nightly at 2 AM CT to bosGame SFTP and Google Drive rclone
+## Canonical references
 
-## Active Agents
+- Project/service map: `/home/chris/AGENT_INDEX.md`
+- Canonical cross-harness dispatch: `/home/chris/cp7-bridge/docs/agent-dispatch/DISPATCH.md`
+- Shared agent-context contract: `/home/chris/projects/cp7-agent-stack/rails/agent-context-contract.md`
+- `~/todo.md` is the primary global open-work surface.
+- `~/project-status.md` is a generated secondary cross-project view.
 
-- Bob: Hermes gateway agent. Primary enforcement and nightly audit runner.
-- Codex: coding agent using /home/chris/.codex/rules/default.rules plus project AGENTS.md files.
-- Claude: claude.ai / Claude Code. Advisory injection through user preferences, HANDOFF.md, and Claude Code hooks.
+## Working rule
 
-## Source of Truth
-
-- Project/service map: /home/chris/AGENT_INDEX.md
-- Live service inventory: /home/chris/projects/service-register/services.yaml
-- Operating standard: ACP Rule 00-90 (rendered per harness)
-- Infrastructure conventions (cp7-bridge scope only): /home/chris/cp7-bridge/docs/agent-standards/AGENT-OPERATING-STANDARD.md
-- Recent infrastructure log: /home/chris/changelog.md
-- Open work: ~/todo.md is the primary global open-work surface (curated priorities). ~/project-status.md is a generated secondary cross-project view — never a canonical queue.
-
-## Recent Activity
-
-- 2026-09-02: Optimized `scripts/capture-source.sh` so normal HTML capture uses lightweight `curl` + `pandoc` first and only falls back to self-hosted Firecrawl when that path fails; `w3m` and raw `curl` remain later fallbacks. No Docker or Hermes restart performed.
-- 2026-09-01: Recovered previously-untracked Hermes operational scripts (including the separately audited session-save helper), custom plugins, nightly-retrospective references, and financial-report support source into hermes-config. Runtime-installed productivity skills, caches/state/build artifacts, and the cp7-agent-stack-owned shared-bootstrap deployment remain outside curated source.
-
-Homelab-wide facts (not project-specific) live in `~/ACERSERVER.md` and are
-excerpted fresh into Bob's printed startup snapshot and startup-brief
-injection on every session — never written here.
-
-## Before Starting Any Task
-1. Read ~/project-status.md only for a complete cross-project view
-2. Operating standard: ACP Rule 00-90
-   For cp7-bridge infrastructure conventions only: cp7-bridge/docs/agent-standards/AGENT-OPERATING-STANDARD.md
-3. Read target project AGENTS.md + HANDOFF.md before project work
-- When done: run session-save.sh with a summary of what you did
+For work in another project, use that project's current `AGENTS.md` and `HANDOFF.md` when relevant. Do not import policy from retired compatibility files, generated startup snapshots, or unrelated parent directories.
